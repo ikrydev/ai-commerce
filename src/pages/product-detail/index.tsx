@@ -1,13 +1,13 @@
-import './App.css';
+import './style.css';
 
-const App = () => {
+const ProductDetail = () => {
   return (
     <div className="content">
       <h1 className="text-3xl font-bold underline bg-green-700">
-        #MulaiAjaDulu
+        [Product Detail] #MulaiAjaDulu
       </h1>
     </div>
   );
 };
 
-export default App;
+export default ProductDetail;
