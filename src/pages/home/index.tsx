@@ -1,12 +1,14 @@
-import './style.css';
+import Header from '../../components/header';
+import OurTeam from '../../components/our-team';
+import ProductList from './ProductList';
 
 const Home = () => {
   return (
-    <div className="content">
-      <h1 className="text-3xl font-bold underline bg-green-700">
-        [Home] #MulaiAjaDulu
-      </h1>
-    </div>
+    <>
+      <Header />
+      <ProductList />
+      <OurTeam />
+    </>
   );
 };
 
