@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProductCard, { Product } from '../../components/product-card';
 import ProductPoppup from '../../components/product-popup';
+import CreatePopup from '../../components/create-popup';
 
 import ProductReview from './ProductReview';
 
@@ -54,6 +55,7 @@ const DEFAULT_PRODUCT = {
 
 const ProductList = () => {
   const [activeProduct, setActiveProduct] = useState<Product>(DEFAULT_PRODUCT);
+  const [showCreatePopup, setShowCreatePopup] = useState(false);
 
   const handleClosePopup = () => {
     setActiveProduct({
@@ -75,7 +77,7 @@ const ProductList = () => {
               Products
             </h2>
 
-            <button className="w-50 rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+            <button className="w-50 rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" onClick={() => setShowCreatePopup(true)}>
               Add Product
             </button>
           </div>
@@ -98,6 +100,8 @@ const ProductList = () => {
       >
         <ProductReview />
       </ProductPoppup>
+
+      <CreatePopup open={showCreatePopup} onClose={() => setShowCreatePopup(false)} />
     </>
   );
 };
