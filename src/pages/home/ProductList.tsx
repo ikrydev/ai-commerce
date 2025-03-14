@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ProductCard, { Product } from '../../components/product-card';
 import ProductPoppup from '../../components/product-popup';
 
+import ProductReview from './ProductReview';
+
 const products = [
   {
     id: '1',
@@ -13,7 +15,7 @@ const products = [
     editable: true,
   },
   {
-    id: '1',
+    id: '2',
     title: 'Basic Tee',
     link: '#',
     imageUrl:
@@ -22,7 +24,7 @@ const products = [
     editable: true,
   },
   {
-    id: '1',
+    id: '3',
     title: 'Basic Tee',
     link: '#',
     imageUrl:
@@ -31,7 +33,7 @@ const products = [
     editable: true,
   },
   {
-    id: '1',
+    id: '4',
     title: 'Basic Tee',
     link: '#',
     imageUrl:
@@ -52,6 +54,17 @@ const DEFAULT_PRODUCT = {
 
 const ProductList = () => {
   const [activeProduct, setActiveProduct] = useState<Product>(DEFAULT_PRODUCT);
+
+  const handleClosePopup = () => {
+    setActiveProduct({
+      ...activeProduct,
+      id: '',
+    });
+
+    setTimeout(() => {
+      setActiveProduct(DEFAULT_PRODUCT);
+    }, 300);
+  };
 
   return (
     <>
@@ -80,9 +93,11 @@ const ProductList = () => {
 
       <ProductPoppup
         show={Boolean(activeProduct.id)}
-        onClose={() => setActiveProduct(DEFAULT_PRODUCT)}
+        onClose={handleClosePopup}
         active={activeProduct}
-      />
+      >
+        <ProductReview />
+      </ProductPoppup>
     </>
   );
 };

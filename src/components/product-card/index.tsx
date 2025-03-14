@@ -14,23 +14,16 @@ interface Props extends Product {
 const ProductCard = ({ onClick, ...product }: Props) => {
   return (
     <div>
-      <div onClick={onClick} key={product.id} className="group relative">
+      <div key={product.id} onClick={onClick} className="group">
         <img
           alt={product.title}
           src={product.imageUrl}
-          className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+          className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
         />
-        <div className="mt-4 flex justify-between">
-          <div>
-            <h3 className="text-sm text-gray-700">
-              <a href={product.link}>
-                <span aria-hidden="true" className="absolute inset-0" />
-                {product.title}
-              </a>
-            </h3>
-          </div>
-          <p className="text-sm font-medium text-gray-900">{product.price}</p>
-        </div>
+        <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
+        <p className="mt-1 text-lg font-medium text-gray-900">
+          {product.price}
+        </p>
       </div>
       {product.editable && (
         <button className="mt-2 w-full rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
