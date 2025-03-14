@@ -112,7 +112,7 @@ const ProductList = () => {
       </div>
 
       <ProductPoppup show={Boolean(activeProduct.id)} onClose={handleClosePopup} active={activeProduct}>
-        <ProductReview />
+        <ProductReview productTitle={activeProduct.title} />
       </ProductPoppup>
 
       <CreatePopup open={showCreatePopup} onClose={() => setShowCreatePopup(false)} onRefetch={loadProducts} />
