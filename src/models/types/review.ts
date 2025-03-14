@@ -5,4 +5,5 @@ export interface Review {
   reviewBody:string;
   image:string;
   createdAt:number;
+  star:number;
 }

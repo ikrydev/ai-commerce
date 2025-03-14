@@ -21,8 +21,18 @@ export async function addProduct(product: Omit<Product, 'id' | 'createdAt'>): Pr
 
 export async function getProducts(): Promise<Product[]> {
   const db = await openDB();
-  const tx = db.transaction('products', 'readonly');
-  const store = tx.objectStore('products');
 
-  return store.getAll() as unknown as Promise<Product[]>;
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('products', 'readonly');
+    const store = tx.objectStore('products');
+    const request = store.getAll();
+
+    request.onsuccess = () => {
+      resolve(request.result);
+    };
+
+    request.onerror = () => {
+      reject(request.error);
+    };
+  });
 }

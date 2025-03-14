@@ -5,9 +5,10 @@ import Form from './Form';
 interface Props {
   open: boolean;
   onClose: () => void;
+  onRefetch: () => void;
 }
 
-const CreatePopup = ({ open, onClose }: Props) => {
+const CreatePopup = ({ open, onClose, onRefetch }: Props) => {
   return (
     <Dialog open={open} onClose={onClose} className="relative z-10">
       <DialogBackdrop
@@ -40,7 +41,7 @@ const CreatePopup = ({ open, onClose }: Props) => {
                   <DialogTitle className="text-base font-semibold text-gray-900">Panel title</DialogTitle>
                 </div>
                 <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                  <Form onClose={onClose} />
+                  <Form onClose={onClose} onRefetch={onRefetch} />
                 </div>
               </div>
             </DialogPanel>
