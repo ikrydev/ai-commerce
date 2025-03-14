@@ -1,15 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { PhotoIcon, TrashIcon } from '@heroicons/react/24/solid'
+import { PhotoIcon, TrashIcon } from '@heroicons/react/24/solid';
 
-// @todo move to helpers
-const getBase64 = (fileImg: File) => {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileImg);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = error => reject(error);
-  });
-}
+import getBase64 from '@/helpers/getBase64';
+import useGenerateProductDesc from '@/usecases/use-generate-product-desc';
 
 interface Props {
   onClose: () => void;
@@ -20,6 +13,7 @@ const Form = ({ onClose }: Props) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const sessionRef = useRef();
+  const { doGenerate } = useGenerateProductDesc();
 
   useEffect(() => {
     const initSession = async () => {
@@ -36,17 +30,11 @@ const Form = ({ onClose }: Props) => {
     }
 
     const selectedFile = event.target.files[0]; 
-    const imageBitmap = await createImageBitmap(selectedFile);
     const newBase64 = await getBase64(selectedFile);
     setImgBase64(newBase64);
 
-
+    const stream = await doGenerate(selectedFile);
     // @ts-expect-error @todo pull window.ai type from main branch once available
-    const stream = await sessionRef.current.promptStreaming([
-      'describe this image with atleast 100 characters, make it appealing as a product description that you will sell on market',
-      { type: 'image', content: imageBitmap },
-    ])
-
     for await (const chunk of stream) {
       // @todo add debounce to the function
       setDescription(prev => prev += chunk);
